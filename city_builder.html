@@ -1,0 +1,64 @@
+# city_builder.py - Nosso primeiro jogo!
+import pygame
+import sys
+
+# Inicializar o Pygame
+pygame.init()
+
+# Criar a tela
+LARGURA, ALTURA = 800, 600
+tela = pygame.display.set_mode((LARGURA, ALTURA))
+pygame.display.set_caption("City Builder BR - POR MARCELO!")
+
+# Cores
+VERDE = (100, 200, 100)  # Grama
+AZUL = (0, 100, 200)     # Água
+MARROM = (139, 69, 19)   # Terra
+BRANCO = (255, 255, 255)
+
+# Recursos do jogador
+dinheiro = 1000
+populacao = 10
+
+# Função para desenhar a interface
+def desenhar_tudo():
+    # Fundo verde (grama)
+    tela.fill(VERDE)
+    
+    # Desenhar rio
+    pygame.draw.rect(tela, AZUL, (0, 200, LARGURA, 100))
+    
+    # Barra de recursos no topo
+    pygame.draw.rect(tela, MARROM, (0, 0, LARGURA, 40))
+    
+    # Texto dos recursos
+    fonte = pygame.font.SysFont(None, 30)
+    texto_dinheiro = fonte.render(f"Dinheiro: R$ {dinheiro}", True, BRANCO)
+    texto_populacao = fonte.render(f"População: {populacao}", True, BRANCO)
+    
+    tela.blit(texto_dinheiro, (20, 10))
+    tela.blit(texto_populacao, (200, 10))
+    
+    # Primeira casa (exemplo)
+    pygame.draw.rect(tela, (200, 150, 100), (100, 100, 80, 60))  # Casa
+    pygame.draw.polygon(tela, (150, 75, 0), [(100, 100), (140, 70), (180, 100)])  # Telhado
+
+# Loop principal do jogo
+executando = True
+while executando:
+    # Verificar eventos
+    for evento in pygame.event.get():
+        if evento.type == pygame.QUIT:
+            executando = False
+        elif evento.type == pygame.MOUSEBUTTONDOWN:
+            # Clique do mouse - vamos construir algo depois!
+            pos = pygame.mouse.get_pos()
+            print(f"Clicou em: {pos}")
+    
+    # Atualizar a tela
+    desenhar_tudo()
+    pygame.display.flip()
+
+# Finalizar o jogo
+pygame.quit()
+sys.exit()
